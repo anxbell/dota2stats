@@ -44,7 +44,7 @@ export function renderPlayerStats(data) {
 let heroMapping = {};
 
 function loadHeroMapping() {
-  fetch("data/heroes.json")
+  fetch("./data/heroes.json")
     .then(response => response.json())
     .then(data => {
       heroMapping = data; // Dynamically map heroes
