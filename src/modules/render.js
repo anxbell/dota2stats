@@ -59,14 +59,14 @@ function getHeroName(heroId) {
 // Render recent matches with dynamic hero names
 export function renderRecentMatches(matches) {
   const container = document.getElementById("recentMatches");
-  container.innerHTML = "<h2>Last 10 Matches</h2>";
+  container.innerHTML = "<h2>Last 5 Matches</h2>";
 
   if (!matches || matches.length === 0) {
     container.innerHTML += "<p>No recent matches found.</p>";
     return;
   }
 
-  matches.slice(0, 10).forEach((match, index) => {
+  matches.slice(0, 5).forEach((match, index) => {
     const heroName = getHeroName(match.hero_id); // Dynamically retrieve name after mapping is loaded
     const matchDurationInMinutes = (match.duration / 60).toFixed(2);
 
