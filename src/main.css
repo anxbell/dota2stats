@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  header {
+    padding: 1rem;
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+  }
+  
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .search-bar input {
+    padding: 0.5rem;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-bar button {
+    background-color: #007bff;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .search-bar button img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  section {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+
+
+  /* General reset for the container */
+/* General reset for the container */
+#players {
+  background: linear-gradient(135deg, #d3c0c0, #f4eded); /* Light reddish/grayish */
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Style the text for readability */
+#players p {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Add styling for the spans (for visual separation and clarity) */
+#players span {
+  display: inline-block;
+  margin: 5px 8px;
+  font-style: italic;
+  color: #555;
+}
+
+
+/* Style the text for readability */
+#players p {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Add styling for the spans (for visual separation and clarity) */
+#players span {
+  display: inline-block;
+  margin: 5px 8px;
+  font-style: italic;
+  color: #555;
+}
