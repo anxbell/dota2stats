@@ -26,7 +26,7 @@ export async function fetchWinLossStats(accountId) {
   return response.json();
 }
 
-export async function fetchHeroes(accountId) {
+export async function fetchUserHeroes(accountId) {
   const url = `https://api.opendota.com/api/players/${accountId}/heroes`;
   const response = await fetch(url);
 
@@ -55,6 +55,14 @@ export async function fetchRatings(accountId) {
   const response = await fetch(url);
 
   if (!response.ok) throw new Error("Failed to fetch ratings");
+  return response.json();
+}
+//heros
+export async function fetchHeroes() {
+  const url = `https://api.opendota.com/api/heroes`;
+  const response = await fetch(url);
+
+  if (!response.ok) throw new Error("Failed to fetch heroes");
   return response.json();
 }
 

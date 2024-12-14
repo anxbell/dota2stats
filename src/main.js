@@ -5,15 +5,17 @@ import {
   fetchTotals,
   fetchRatings,
   fetchRecentMatches,
+  fetchUserHeroes
 } from "./modules/api.js";
 
 import {
   renderPlayerStats,
   renderWinLossStats,
-  renderHeroes,
+  //renderHeroes,
   renderTotals,
   renderPlayerRatings,
-  renderRecentMatches // Import the renderRecentMatches
+  renderRecentMatches,
+  renderUserHeroes
 } from "./modules/render.js";
 
 document.getElementById("searchButton").addEventListener("click", async () => {
@@ -33,8 +35,8 @@ document.getElementById("searchButton").addEventListener("click", async () => {
     renderWinLossStats(winLossStats);
 
     // Fetch and render heroes
-    const heroes = await fetchHeroes(accountId);
-    renderHeroes(heroes);
+    const heroes = await fetchUserHeroes(accountId);
+    renderUserHeroes(heroes);
 
     // Fetch and render totals
     const totals = await fetchTotals(accountId);

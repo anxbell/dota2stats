@@ -1,3 +1,5 @@
+import { fetchHeroes } from "./api.js";
+
 // Helper function to capitalize each word
 function capitalizeWords(str) {
   if (!str) return "N/A";
@@ -43,13 +45,18 @@ export function renderPlayerStats(data) {
 // Hero mapping initialization
 let heroMapping = {};
 
-function loadHeroMapping() {
-  fetch('./src/data/heroes.json')
-    .then(response => response.json())
-    .then(data => {
-      heroMapping = data; // Dynamically map heroes
-      console.log("Hero mapping data loaded", heroMapping);
-    });
+async function loadHeroMapping() {
+  try {
+    const heroes = await fetchHeroes();
+    // Map hero ID to localized name
+    heroMapping = heroes.reduce((map, hero) => {
+      map[hero.id] = hero.localized_name;
+      return map;
+    }, {});
+    console.log("Hero mapping data loaded", heroMapping);
+  } catch (error) {
+    console.error("Failed to load hero mapping:", error);
+  }
 }
 
 function getHeroName(heroId) {
@@ -62,31 +69,61 @@ export function renderRecentMatches(matches) {
   container.innerHTML = "<h2>Last 5 Matches</h2>";
 
   if (!matches || matches.length === 0) {
-    container.innerHTML += "<p>No recent matches found.</p>";
-    return;
+      container.innerHTML += "<p>No recent matches found.</p>";
+      return;
   }
 
-  matches.slice(0, 5).forEach((match, index) => {
-    const heroName = getHeroName(match.hero_id); // Dynamically retrieve name after mapping is loaded
-    const matchDurationInMinutes = (match.duration / 60).toFixed(2);
+  matches.slice(0, 5).forEach((match) => {
+      const heroName = getHeroName(match.hero_id); // Dynamically retrieve name after mapping is loaded
+      const matchDurationInMinutes = (match.duration / 60).toFixed(2);
 
-    const matchElem = document.createElement("div");
+      const matchElem = document.createElement("div");
+      matchElem.className = "match-info";
 
-    matchElem.innerHTML = `
-      <p><strong>Match ID:</strong> ${match.match_id}</p>
-      <p><strong>Radiant Win:</strong> ${match.radiant_win ? "Yes" : "No"}</p>
-      <p><strong>Hero:</strong> ${heroName}</p>
-      <p><strong>Match Duration:</strong> ${matchDurationInMinutes} minutes</p>
-      <p><strong>Kills:</strong> ${match.kills}</p>
-      <p><strong>Deaths:</strong> ${match.deaths}</p>
-      <p><strong>Assists:</strong> ${match.assists}</p>
-      <p><strong>XP Per Minute:</strong> ${match.xp_per_min || "N/A"}</p>
-      <p><strong>Gold Per Minute:</strong> ${match.gold_per_min || "N/A"}</p>
-      <p><strong>Hero Damage:</strong> ${match.hero_damage || "N/A"}</p>
-      <p><strong>Last Hits:</strong> ${match.last_hits || "N/A"}</p>
-      <hr>
-    `;
-    container.appendChild(matchElem);
+      matchElem.innerHTML = `
+          <h3>Match ID: ${match.match_id}</h3>
+          <div class="info">
+              <img src="src/assets/images/radiant_win_icon.png.webp" alt="Radiant Win" class="icon">
+              <strong>Radiant Win:</strong> <span>${match.radiant_win ? "Yes" : "No"}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/hero_icon.webp" alt="Hero" class="icon">
+              <strong>Hero: </strong> <span>${heroName}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/duration_icon.jpeg" alt="Duration" class="icon">
+              <strong>Match Duration:</strong> <span>${matchDurationInMinutes} minutes</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/kills_icon.jpeg" alt="Kills" class="icon">
+              <strong>Kills:</strong> <span>${match.kills}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/deaths_icon.jpeg" alt="Deaths" class="icon">
+              <strong>Deaths:</strong> <span>${match.deaths}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/assists_icon.jpeg" alt="Assists" class="icon">
+              <strong>Assists:</strong> <span>${match.assists}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/xp_icon.jpeg" alt="XP Per Minute" class="icon">
+              <strong>XP Per Minute:</strong> <span>${match.xp_per_min || "N/A"}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/gold_icon.jpeg" alt="Gold Per Minute" class="icon">
+              <strong>Gold Per Minute:</strong> <span>${match.gold_per_min || "N/A"}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/damage_icon.jpeg" alt="Hero Damage" class="icon">
+              <strong>Hero Damage:</strong> <span>${match.hero_damage || "N/A"}</span>
+          </div>
+          <div class="info">
+              <img src="src/assets/images/last_hits_icon.jpeg" alt="Last Hits" class="icon">
+              <strong>Last Hits:</strong> <span>${match.last_hits || "N/A"}</span>
+          </div>
+      `;
+      container.appendChild(matchElem);
   });
 }
 
@@ -101,7 +138,7 @@ export function renderWinLossStats(data) {
   const winRatio = totalGames > 0 ? ((wins / totalGames) * 100).toFixed(2) : "N/A";
 
   container.innerHTML = `
-    <h2><strong>Win/Loss Stats:</strong></h2>
+    <h2><strong>Win/Loss Stats</strong></h2>
     <p><strong>Wins:</strong> ${wins}</p>
     <p><strong>Losses:</strong> ${losses}</p>
     <p><strong>Win Ratio:</strong> ${winRatio}%</p>
@@ -110,7 +147,7 @@ export function renderWinLossStats(data) {
 
 
 // Render top heroes data
-export function renderHeroes(data) {
+export function renderUserHeroes(data) {
   const container = document.getElementById("heroesStats");
   container.innerHTML = "<h2>Heroes Stats - Top 3</h2>";
 
@@ -144,7 +181,7 @@ export function renderTotals(data) {
   const kdRatio = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : "N/A";
 
   container.innerHTML = `
-    <h2><strong>Totals:</strong></h2>
+    <h2><strong>Totals</strong></h2>
     <p><strong>Kills:</strong> ${totalKills}</p>
     <p><strong>Deaths:</strong> ${totalDeaths}</p>
     <p><strong>Assists:</strong> ${totalAssists}</p>
