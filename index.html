@@ -9,11 +9,14 @@
 </head>
 <body>
   <header>
-    <div class="search-bar">
-      <input type="" id="accountIdInput" placeholder="Enter Account ID like '321580662'">
-      <button id="searchButton">
-        <img src="src/assets/images/magnifying-glass-icon.png" alt="Search">
-      </button>
+    <div>
+      <h1>Dota Player Stats</h1>
+      <div class="search-bar">
+        <input type="" id="accountIdInput" placeholder="Enter Account ID like '321580662'">
+        <button id="searchButton">
+          <img src="src/assets/images/magnifying-glass-icon.png" alt="Search">
+        </button>
+      </div>
     </div>
   </header>
 
@@ -22,16 +25,35 @@
       <p><strong>Try these account IDs:</strong> 
         <span>Vampire Survivor - 321580662</span> 
         <span>Malr1ne - 898455820</span> 
+        <span>Elmisho - 1031547092</span>
         <span>Kataomi - 196878136</span>
       </p>
     </section>
+
+    <section id="playerNotFound" class="hidden">
+      <p>Player doesn't exist, please try another ID.</p>
+    </section>
+
+    <div id="filterContainer" class="hidden">
+      <button class="filter-btn" id="showAll">All</button>
+      <button class="filter-btn" id="showPlayerInfo">Player Info</button>
+      <button class="filter-btn" id="showHeroStats">Hero Stats</button>
+      <button class="filter-btn" id="showRecentMatches">Recent Matches</button>
+      <button class="filter-btn" id="showWinLossStats">Win/Loss Stats</button>
+      <button class="filter-btn" id="showTotals">Totals</button>
+      <button class="filter-btn" id="showRatings">Ratings</button>
+    </div>
     
-    <section id="playerStats"></section>
-    <section id="winLossStats"></section>
-    <section id="heroesStats"></section>
-    <section id="totals"></section>
-    <section id="ratingsContainer"></section>
-    <section id="recentMatches"></section>
+    
+    <section id="playerStats" class="hidden"><div class="spinner hidden"></div></section>
+    <section id="winLossStats" class="hidden"><div class="spinner hidden"></div></section>
+    <section id="heroesStats" class="hidden"><div class="spinner hidden"></div></section>
+    <section id="totals" class="hidden"><div class="spinner hidden"></div></section>
+    <section id="ratingsContainer" class="hidden"><div class="spinner hidden"></div></section>
+    <section id="recentMatches" class="hidden"><div class="spinner hidden"></div></section>
+
+
+    
   </main>
   
   <script type="module" src="src/main.js"></script>

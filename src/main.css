@@ -214,6 +214,40 @@ section {
   animation: fadeIn 0.5s ease forwards; /* Apply fade-in animation */
 }
 
+/* card flip animation
+.card {
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+
 /* Responsive design */
 @media (max-width: 600px) {
   #accountIdInput {
@@ -227,4 +261,146 @@ section {
   .match-info {
       padding: 10px; /* Adjust padding for match items */
   }
+}
+
+
+/* Shining text effect for all h2 */
+h1, h2 {
+  font-size: 2rem; /* Adjust the size as needed */
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffcc00, #ffffff, #ffcc00);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text; /* Ensures compatibility with WebKit browsers */
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Load More Matches Button */
+#loadMoreButton {
+  background-color: #ffcc00; /* Gold color */
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #282c34; /* Dark color for text */
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for Load More button */
+#loadMoreButton:hover {
+  background-color: #e6b800; /* Slightly darker gold */
+  transform: translateY(-3px); /* Slight lift on hover */
+}
+
+/* Focus effect for the Load More button */
+#loadMoreButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.4); /* Glow effect when focused */
+}
+
+/* Disabled state for Load More button */
+#loadMoreButton:disabled {
+  background-color: #cccccc; /* Light gray */
+  cursor: not-allowed; /* Disable pointer */
+}
+
+#loadMoreButton:disabled:hover {
+  background-color: #cccccc; /* No hover effect when disabled */
+}
+
+
+#filterContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: #282c34;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.filter-btn:hover {
+  background-color: #ffcc00; /* Gold color on hover */
+  color: #282c34;
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.filter-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.5); /* Glow effect on focus */
+}
+
+.filter-btn:active {
+  background-color: #e6b800; /* Darker gold on active */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+@media (max-width: 600px) {
+  .filter-btn {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Fade-in effect for sections */
+section {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
